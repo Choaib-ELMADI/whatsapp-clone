@@ -19,6 +19,19 @@ module.exports = {
 			colors: {
 				background: "var(--background)",
 				text: "var(--text)",
+				secondary: "var(--secondary)",
+				tertiary: "var(--tertiary)",
+				hovery: "var(--hovery)",
+				brand: "var(--brand)",
+				custom_01: "var(--custom_01)",
+				custom_02: "var(--custom_02)",
+			},
+			fontSize: {
+				large: "var(--large)",
+				medium: "var(--medium)",
+				normal: "var(--normal)",
+				small: "var(--small)",
+				tiny: "var(--tiny)",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
