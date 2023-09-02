@@ -1,7 +1,11 @@
+import ChatsRight from "@/components/chats-right";
+import ChatsLeft from "@/components/chats-left";
+
 export default function ChatsPage() {
 	return (
-		<div className="">
-			<h1>Chats</h1>
+		<div className="flex h-full">
+			<ChatsLeft />
+			<ChatsRight />
 		</div>
 	);
 }

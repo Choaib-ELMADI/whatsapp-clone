@@ -36,7 +36,7 @@ const MenuItems = ({
 				activeMenuItem !== null && "translate-y-0"
 			)}
 		>
-			<div className="flex flex-col gap-1 p-1 w-[160px] bg-backgound border-r border-white dark:border-black">
+			<div className="flex flex-col gap-1 p-1 w-[160px] bg-background border-r border-white dark:border-black">
 				{profileLinks.map((link) => (
 					<button
 						key={link.label}

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: #e0e0e0;
+    --background: #d7caca;
     --text: #272727;
 
     --secondary: #444444;
@@ -15,7 +15,7 @@
 
     --custom_01: #c6b594;
     --custom_02: #66e4cf;
-    --custom_03: #ebebeb;
+    --custom_03: #e1d1d1;
 
     --radius: 0.5rem;
     --large: 24px;
