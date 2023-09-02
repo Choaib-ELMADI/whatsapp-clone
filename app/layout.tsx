@@ -2,12 +2,14 @@ const inter = Inter({ subsets: ["latin"] });
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 
+import Header from "@/components/header";
 import Providers from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	title: "WhatsUp Web",
-	description: "Whatsapp Web Application Clone",
+	title: "Whatsup Web",
+	description:
+		"Whatsapp Web Application Clone. Simple, Secure, & Reliable Messaging.",
 };
 
 export default function RootLayout({
@@ -19,6 +21,7 @@ export default function RootLayout({
 		<html lang="en" className="dark" style={{ colorScheme: "dark" }}>
 			<body className={inter.className}>
 				<Providers>
+					<Header />
 					<main>{children}</main>
 				</Providers>
 			</body>

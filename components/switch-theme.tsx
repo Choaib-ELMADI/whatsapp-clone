@@ -1,20 +1,21 @@
 "use client";
 
+import { MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
-import { Switch } from "./ui/switch";
 
 const SwitchTheme = () => {
 	const { resolvedTheme, setTheme } = useTheme();
 
 	return (
-		<div>
-			<Switch
-				id="dark-light-mode"
-				checked={resolvedTheme === "dark"}
-				onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-			/>
-			<label htmlFor="dark-light-mode">Dark mode</label>
+		<div
+			className="cursor-pointer"
+			onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+		>
+			{resolvedTheme === "dark" ? (
+				<MoonStar className="w-6 h-6" />
+			) : (
+				<Sun className="w-6 h-6" />
+			)}
 		</div>
 	);
 };

@@ -1,9 +1,7 @@
-import SwitchTheme from "@/components/switch-theme";
-
 export default function HomePage() {
 	return (
 		<div className="">
-			<SwitchTheme />
+			<h1>Chats</h1>
 		</div>
 	);
 }
