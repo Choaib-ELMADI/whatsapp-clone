@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
@@ -20,22 +21,24 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html
-			lang="en"
-			className="dark h-screen overflow-hidden"
-			style={{ colorScheme: "dark" }}
-		>
-			<body className={cn("max-w-[2000px] mx-auto", inter.className)}>
-				<Providers>
-					<Header />
-					<main className="flex">
-						<Sidebar />
-						<div className="bg-custom_03 w-full border-t border-l border-white dark:border-black rounded-tl-lg">
-							{children}
-						</div>
-					</main>
-				</Providers>
-			</body>
-		</html>
+		<ClerkProvider>
+			<html
+				lang="en"
+				className="dark h-screen overflow-hidden"
+				style={{ colorScheme: "dark" }}
+			>
+				<body className={cn("max-w-[2000px] mx-auto", inter.className)}>
+					<Providers>
+						<Header />
+						<main className="flex">
+							<Sidebar />
+							<div className="bg-custom_03 w-full border-t border-l border-white dark:border-black rounded-tl-lg">
+								{children}
+							</div>
+						</main>
+					</Providers>
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }
