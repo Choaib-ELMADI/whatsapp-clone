@@ -4,7 +4,7 @@ import UserMenu from "./user-menu";
 
 const Sidebar = () => {
 	return (
-		<div className="w-[38px] m-1 mt-0 h-[calc(100vh-48px)] overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col justify-between gap-8">
+		<div className="w-[38px] m-1 mt-0 h-[calc(100vh-48px)] overflow-y-auto overflow-x-hidden hide-scrollbar flex flex-col justify-between gap-8">
 			<TopLinks />
 			<div>
 				<BottomLinks />

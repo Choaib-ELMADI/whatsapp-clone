@@ -3,15 +3,12 @@
 import { Settings, UserCircle2 } from "lucide-react";
 import { useState } from "react";
 
-import SettingsMenu from "./settings";
-import Profile from "./profile";
+import MenuItems from "./menu-items";
 
 const UserMenu = () => {
-	const [activeMenuItem, setActiveMenuItem] = useState<
-		"settings" | "profile" | null
-	>(null);
+	const [activeMenuItem, setActiveMenuItem] = useState<string | null>(null);
 
-	const handleClick = (item: "settings" | "profile") => {
+	const handleClick = (item: string) => {
 		if (activeMenuItem !== item) {
 			setActiveMenuItem(item);
 		} else {
@@ -23,19 +20,21 @@ const UserMenu = () => {
 		<div className="flex flex-col gap-1">
 			<button
 				className="w-full flex justify-center py-2 rounded-sm hover:bg-hovery transition-all"
-				onClick={() => handleClick("settings")}
+				onClick={() => handleClick("Help")}
 			>
 				<Settings className="w-5 h-5" />
 			</button>
 			<button
 				className="w-full flex justify-center py-2 rounded-sm hover:bg-hovery transition-all"
-				onClick={() => handleClick("profile")}
+				onClick={() => handleClick("Profile")}
 			>
 				<UserCircle2 className="w-5 h-5" />
 			</button>
 
-			<SettingsMenu activeMenuItem={activeMenuItem} />
-			<Profile activeMenuItem={activeMenuItem} />
+			<MenuItems
+				activeMenuItem={activeMenuItem}
+				setActiveMenuItem={setActiveMenuItem}
+			/>
 		</div>
 	);
 };

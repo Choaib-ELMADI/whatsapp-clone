@@ -19,12 +19,16 @@ module.exports = {
 			colors: {
 				background: "var(--background)",
 				text: "var(--text)",
+
 				secondary: "var(--secondary)",
 				tertiary: "var(--tertiary)",
 				hovery: "var(--hovery)",
+
 				brand: "var(--brand)",
+
 				custom_01: "var(--custom_01)",
 				custom_02: "var(--custom_02)",
+				custom_03: "var(--custom_03)",
 			},
 			fontSize: {
 				large: "var(--large)",
