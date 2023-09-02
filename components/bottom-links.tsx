@@ -9,11 +9,11 @@ import { cn } from "@/lib/utils";
 const bottomLinks = [
 	{
 		icon: Star,
-		link: "/starred",
+		link: "/chats/starred",
 	},
 	{
 		icon: Archive,
-		link: "/archived",
+		link: "/chats/archived",
 	},
 ];
 

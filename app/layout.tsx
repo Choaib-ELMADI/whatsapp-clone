@@ -30,12 +30,7 @@ export default function RootLayout({
 				<body className={cn("max-w-[2000px] mx-auto", inter.className)}>
 					<Providers>
 						<Header />
-						<main className="flex">
-							<Sidebar />
-							<div className="bg-custom_03 w-full border-t border-l border-white dark:border-black rounded-tl-lg">
-								{children}
-							</div>
-						</main>
+						{children}
 					</Providers>
 				</body>
 			</html>

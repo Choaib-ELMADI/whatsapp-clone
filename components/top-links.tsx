@@ -9,15 +9,15 @@ import { cn } from "@/lib/utils";
 const topLinks = [
 	{
 		icon: MessageCircle,
-		link: "/",
+		link: "/chats",
 	},
 	{
 		icon: Phone,
-		link: "/calls",
+		link: "/chats/calls",
 	},
 	{
 		icon: CircleDotDashed,
-		link: "/status",
+		link: "/chats/status",
 	},
 ];
 
