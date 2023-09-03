@@ -5,8 +5,13 @@ import { UserCircle } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import Image from "next/image";
+import { StatusProps } from "@/types/types";
 
-const CreateStatus = () => {
+const CreateStatus = ({
+	uploadStatus,
+}: {
+	uploadStatus: (data: StatusProps) => void;
+}) => {
 	const [viewModel, setViewModel] = useState(false);
 	const { user } = useUser();
 
@@ -33,7 +38,9 @@ const CreateStatus = () => {
 					<p className="text-tiny text-secondary">No updates</p>
 				</div>
 			</button>
-			{viewModel && <UploadStatus setViewModel={setViewModel} />}
+			{viewModel && (
+				<UploadStatus setViewModel={setViewModel} uploadStatus={uploadStatus} />
+			)}
 		</>
 	);
 };

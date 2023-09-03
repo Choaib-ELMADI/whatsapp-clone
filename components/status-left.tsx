@@ -1,4 +1,6 @@
+import { uploadStatus } from "@/lib/actions";
 import CreateStatus from "./create-status";
+import Stories from "./stories";
 
 export default function StatusLeft() {
 	return (
@@ -6,7 +8,8 @@ export default function StatusLeft() {
 			<h1 className="text-normal font-bold tracking-wide leading-[36px]">
 				Status
 			</h1>
-			<CreateStatus />
+			<CreateStatus uploadStatus={uploadStatus} />
+			<Stories />
 		</div>
 	);
 }

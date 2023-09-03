@@ -1,18 +1,23 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { Send, X } from "lucide-react";
 import Image from "next/image";
 
 import { storage } from "@/lib/db/firebase";
+import { StatusProps } from "@/types/types";
 
 const UploadStatus = ({
 	setViewModel,
+	uploadStatus,
 }: {
 	setViewModel: (state: boolean) => void;
+	uploadStatus: (data: StatusProps) => void;
 }) => {
 	const [fileUrl, setFileUrl] = useState<string | null>(null);
 	const [file, setFile] = useState<File | null>(null);
+	const [Uploading, setUploading] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [message, setMessage] = useState("");
 
 	useEffect(() => {
 		setLoading(false);
@@ -60,6 +65,24 @@ const UploadStatus = ({
 		if (fileUrl) {
 			clearTimeout(timeoutId);
 		}
+	};
+
+	const uploadStatusToDB = () => {
+		if (!fileUrl) return;
+
+		setUploading(true);
+
+		uploadStatus({
+			fileUrl,
+			message,
+			type: file?.type.startsWith("image") ? "image" : "video",
+			userId: file?.name!,
+		});
+
+		setUploading(false);
+		setFileUrl(null);
+		setMessage("");
+		setFile(null);
 	};
 
 	return (
@@ -139,6 +162,22 @@ const UploadStatus = ({
 						hidden
 					/>
 				</label>
+				<div className="w-full relative max-w-[400px] mx-auto">
+					<textarea
+						rows={2}
+						className="resize-none w-full mt-4 rounded-sm outline-none p-2 text-small"
+						placeholder="Share your thoughts"
+						onChange={(e) => setMessage(e.target.value)}
+						value={message}
+					/>
+					<button
+						className="absolute bottom-3 right-2 p-2 bg-brand rounded-full disabled:hidden"
+						disabled={!fileUrl}
+						onClick={() => uploadStatusToDB()}
+					>
+						<Send className="w-5 h-5" />
+					</button>
+				</div>
 			</div>
 		</div>
 	);
