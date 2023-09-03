@@ -6,9 +6,9 @@ export default function ChatsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<main className="flex">
+		<main className="flex h-[calc(100vh-45px)] relative overflow-hidden">
 			<Sidebar />
-			<div className="bg-custom_03 w-full border-t border-l border-white dark:border-black rounded-tl-lg">
+			<div className="bg-custom_03 w-full flex-1 border-t border-l border-white dark:border-black rounded-tl-lg">
 				{children}
 			</div>
 		</main>

@@ -24,7 +24,7 @@ export default function RootLayout({
 		<ClerkProvider>
 			<html
 				lang="en"
-				className="dark h-screen overflow-hidden"
+				className="dark custom-scrollbar"
 				style={{ colorScheme: "dark" }}
 			>
 				<body className={cn("max-w-[2000px] mx-auto", inter.className)}>

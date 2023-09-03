@@ -1,12 +1,17 @@
 "use client";
 
-import { Info, UserCircle2 } from "lucide-react";
+import { Laptop, Info, UserCircle2 } from "lucide-react";
 
 import ProfileDetails from "./profile-details";
+import General from "./general-settings";
 import { cn } from "@/lib/utils";
 import Help from "./help";
 
 const profileLinks = [
+	{
+		icon: Laptop,
+		label: "General",
+	},
 	{
 		icon: Info,
 		label: "Help",
@@ -18,6 +23,7 @@ const profileLinks = [
 ];
 
 const components: Record<string, JSX.Element> = {
+	General: <General />,
 	Help: <Help />,
 	Profile: <ProfileDetails />,
 };
@@ -32,11 +38,11 @@ const MenuItems = ({
 	return (
 		<div
 			className={cn(
-				"absolute left-[46px] bottom-1 z-50 bg-backgound border border-white dark:border-black text-text w-[calc(100%-50px)] max-w-[500px] h-[calc(100vh-48px)] max-h-[500px] rounded-lg translate-y-[110%] transition-all custom-scrollbar overflow-auto flex",
+				"absolute left-[46px] bottom-1 z-50 bg-background border border-white dark:border-black text-text w-[calc(100%-50px)] max-w-[500px] h-[calc(100vh-49px)] max-h-[500px] rounded-lg translate-y-[110%] transition-all custom-scrollbar overflow-auto flex",
 				activeMenuItem !== null && "translate-y-0"
 			)}
 		>
-			<div className="flex flex-col gap-1 p-1 w-[160px] bg-background border-r border-white dark:border-black">
+			<div className="flex flex-col gap-1 p-1 w-[160px] h-fit min-h-full bg-background border-r border-white dark:border-black">
 				{profileLinks.map((link) => (
 					<button
 						key={link.label}
@@ -52,7 +58,7 @@ const MenuItems = ({
 					</button>
 				))}
 			</div>
-			<div className="flex-1 bg-custom_03 p-4">
+			<div className="flex-1 bg-custom_03 h-fit min-h-full p-4">
 				{components[activeMenuItem!]}
 			</div>
 		</div>

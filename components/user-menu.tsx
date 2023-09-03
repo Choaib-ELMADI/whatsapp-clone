@@ -9,7 +9,7 @@ import MenuItems from "./menu-items";
 
 const UserMenu = () => {
 	const [activeMenuItem, setActiveMenuItem] = useState<string | null>(null);
-	const { isSignedIn, user } = useUser();
+	const { user } = useUser();
 
 	const handleClick = (item: string) => {
 		if (activeMenuItem !== item) {
@@ -23,7 +23,7 @@ const UserMenu = () => {
 		<div className="flex flex-col gap-1">
 			<button
 				className="w-full flex justify-center py-2 rounded-sm hover:bg-hovery transition-all"
-				onClick={() => handleClick("Help")}
+				onClick={() => handleClick("General")}
 			>
 				<Settings className="w-5 h-5" />
 			</button>
