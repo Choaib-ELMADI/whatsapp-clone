@@ -1,15 +1,14 @@
-import { prisma } from "@/lib/db/prisma";
+import { Status } from "@prisma/client";
+
 import Story from "./story";
 
-const Stories = async () => {
-	// const stories = await prisma.status.findMany();
-
+const Stories = ({ stories }: { stories: Status[] }) => {
 	return (
 		<div>
 			<p className="text-tiny text-secondary mb-2">View updates</p>
-			{/* {stories.map((story) => (
-				<Story key={story.id} />
-			))} */}
+			{stories.map((story) => (
+				<Story key={story.id} story={story} />
+			))}
 		</div>
 	);
 };

@@ -9,8 +9,10 @@ import { StatusProps } from "@/types/types";
 
 const CreateStatus = ({
 	uploadStatus,
+	userStoriesLength,
 }: {
 	uploadStatus: (data: StatusProps) => void;
+	userStoriesLength: number;
 }) => {
 	const [viewModel, setViewModel] = useState(false);
 	const { user } = useUser();
@@ -35,7 +37,13 @@ const CreateStatus = ({
 				)}
 				<div className="flex flex-col items-start">
 					<h1 className="text-tiny font-bold">My status</h1>
-					<p className="text-tiny text-secondary">No updates</p>
+					<p className="text-tiny text-secondary">
+						{userStoriesLength < 1
+							? "No updates"
+							: userStoriesLength === 1
+							? "1 update"
+							: `${userStoriesLength} updates`}
+					</p>
 				</div>
 			</button>
 			{viewModel && (

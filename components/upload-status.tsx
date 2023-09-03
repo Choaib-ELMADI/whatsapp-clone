@@ -1,10 +1,12 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Send, X } from "lucide-react";
 import Image from "next/image";
 
 import { storage } from "@/lib/db/firebase";
 import { StatusProps } from "@/types/types";
+import SwitchTheme from "./switch-theme";
 
 const UploadStatus = ({
 	setViewModel,
@@ -15,13 +17,14 @@ const UploadStatus = ({
 }) => {
 	const [fileUrl, setFileUrl] = useState<string | null>(null);
 	const [file, setFile] = useState<File | null>(null);
-	const [Uploading, setUploading] = useState(false);
+	const [uploading, setUploading] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [message, setMessage] = useState("");
+	const router = useRouter();
 
-	useEffect(() => {
-		setLoading(false);
-	}, [file]);
+	// useEffect(() => {
+	// 	setLoading(false);
+	// }, [file]);
 
 	const uploadFileToDb = () => {
 		if (!file) return;
@@ -70,29 +73,40 @@ const UploadStatus = ({
 	const uploadStatusToDB = () => {
 		if (!fileUrl) return;
 
-		setUploading(true);
+		try {
+			setUploading(true);
 
-		uploadStatus({
-			fileUrl,
-			message,
-			type: file?.type.startsWith("image") ? "image" : "video",
-			userId: file?.name!,
-		});
-
-		setUploading(false);
-		setFileUrl(null);
-		setMessage("");
-		setFile(null);
+			uploadStatus({
+				fileUrl,
+				message,
+				type: file?.type.startsWith("image") ? "image" : "video",
+				userId: file?.name!,
+			});
+		} catch (error) {
+			console.log("ERROR UPLOADING: ", error);
+			setUploading(false);
+			setFileUrl(null);
+		} finally {
+			setUploading(false);
+			setFileUrl(null);
+			setMessage("");
+			setFile(null);
+			router.refresh();
+		}
 	};
 
 	return (
 		<div className="w-full h-screen fixed top-0 left-0 bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(0,0,0,0.6)] flex justify-center">
-			<X
-				className="w-6 h-6 cursor-pointer fixed top-2 right-2 bg-text text-background rounded-full"
-				onClick={() => setViewModel(false)}
-			/>
+			<div className="fixed top-2 right-2 flex items-center gap-4">
+				<SwitchTheme />
+				<X
+					className="w-6 h-6 cursor-pointer bg-text text-background rounded-full"
+					onClick={() => setViewModel(false)}
+				/>
+			</div>
+
 			<div className="bg-background w-full overflow-auto custom-scrollbar max-w-[500px] p-2 rounded-lg border border-white dark:border-black">
-				<h1 className="text-normal font-bold tracking-wide text-center mb-2">
+				<h1 className="text-normal font-bold tracking-wide text-center mb-2 select-none">
 					Upload Status
 				</h1>
 				<label
@@ -124,10 +138,10 @@ const UploadStatus = ({
 						</>
 					) : (
 						<>
-							<p className="text-center text-normal">
+							<p className="text-center text-normal select-none">
 								Video/Photo Preview Here
 							</p>
-							<p className="text-center text-tertiary text-small">
+							<p className="text-center text-tertiary text-small select-none">
 								Select a video or a picture
 							</p>
 						</>
@@ -171,8 +185,8 @@ const UploadStatus = ({
 						value={message}
 					/>
 					<button
-						className="absolute bottom-3 right-2 p-2 bg-brand rounded-full disabled:hidden"
-						disabled={!fileUrl}
+						className="absolute bottom-3 right-2 p-2 bg-brand rounded-full disabled:opacity-70 disabled:cursor-not-allowed"
+						disabled={!fileUrl || uploading}
 						onClick={() => uploadStatusToDB()}
 					>
 						<Send className="w-5 h-5" />
