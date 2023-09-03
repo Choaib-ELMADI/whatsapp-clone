@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 import { Search, X } from "lucide-react";
 import { useState } from "react";
 
-const Searchbar = ({ type }: { type: string }) => {
+const Searchbar = ({ placeholder }: { placeholder: string }) => {
 	const [query, setQuery] = useState("");
 
 	return (
 		<div className="relative">
 			<input
 				className="border-[0.5px] border-hovery border-b-[2px] focus:border-b-brand rounded-sm mt-2 pl-2 py-[3px] outline-none w-full text-tiny placeholder:text-tiny"
-				placeholder={`Search or start a new ${type}`}
+				placeholder={placeholder}
 				onChange={(e) => setQuery(e.target.value)}
 				value={query}
 			/>
