@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.23.3",
     "@clerk/themes": "^1.7.5",
+    "@prisma/client": "^5.0.0",
     "@radix-ui/react-switch": "^1.0.3",
     "@t3-oss/env-nextjs": "^0.6.1",
     "@types/node": "^20.5.7",
@@ -27,6 +28,7 @@
     "next": "^13.4.19",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.29",
+    "prisma": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "stream-chat": "^8.11.0",
