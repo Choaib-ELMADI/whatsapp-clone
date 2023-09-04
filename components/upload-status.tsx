@@ -1,6 +1,7 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 import { Send, X } from "lucide-react";
 import Image from "next/image";
 
@@ -25,6 +26,7 @@ const UploadStatus = ({
 	const inputRef = useRef<HTMLTextAreaElement | null>(null);
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const router = useRouter();
+	const { user } = useUser();
 
 	const handleVideoMetadata = () => {
 		if (videoRef.current) {
@@ -98,7 +100,9 @@ const UploadStatus = ({
 				message,
 				type: file?.type.startsWith("image") ? "image" : "video",
 				duration,
-				userId: file?.name!,
+				userName: user?.fullName!,
+				userId: user?.id!,
+				imgProfile: user?.imageUrl!,
 			});
 		} catch (error) {
 			console.log("ERROR UPLOADING: ", error);
@@ -132,7 +136,7 @@ const UploadStatus = ({
 				</h1>
 				<label
 					htmlFor="status-file"
-					className="bg-custom_03 w-full max-w-[360px] h-[560px] mx-auto rounded-sm flex flex-col items-center justify-center cursor-pointer border border-dashed border-tertiary relative"
+					className="bg-custom_03 w-full max-w-[360px] h-[560px] overflow-hidden mx-auto rounded-sm flex flex-col items-center justify-center cursor-pointer border border-dashed border-tertiary relative"
 				>
 					{file ? (
 						<>
@@ -140,9 +144,9 @@ const UploadStatus = ({
 								<Image
 									src={URL.createObjectURL(file)}
 									alt="Status File"
-									width={100}
-									height={100}
-									className="w-full h-full rounded-sm object-cover"
+									width={360}
+									height={800}
+									className="w-full rounded-sm object-cover"
 								/>
 							) : file?.type.startsWith("video") ? (
 								<video
@@ -150,7 +154,7 @@ const UploadStatus = ({
 									onLoadedMetadata={handleVideoMetadata}
 									controls
 									muted
-									className="w-full h-full rounded-sm object-cover"
+									className="w-full rounded-sm object-cover"
 								>
 									<source src={URL.createObjectURL(file)} />
 								</video>

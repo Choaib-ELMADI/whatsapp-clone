@@ -1,9 +1,13 @@
+import { currentUser } from "@clerk/nextjs";
+
 import { uploadStatus } from "@/lib/actions";
 import CreateStatus from "./create-status";
 import { prisma } from "@/lib/db/prisma";
 import Stories from "./stories";
 
 export default async function StatusLeft() {
+	const user = await currentUser();
+
 	const twentyFourHoursAgo = new Date();
 	twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
 
@@ -12,7 +16,17 @@ export default async function StatusLeft() {
 		orderBy: { id: "desc" },
 	});
 
-	const userStoriesLength = stories ? stories.length : 0;
+	const userStories = await prisma.status.findMany({
+		where: {
+			AND: {
+				createdAt: { gte: twentyFourHoursAgo },
+				userId: user?.id,
+			},
+		},
+		orderBy: { id: "desc" },
+	});
+
+	const userStoriesLength = userStories ? userStories.length : 0;
 
 	return (
 		<div className="h-[calc(100vh-45px)] w-[360px] border-r border-white dark:border-black py-2 px-3">

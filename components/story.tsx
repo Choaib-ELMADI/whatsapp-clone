@@ -25,10 +25,10 @@ const Story = async ({ story }: { story: Status }) => {
 			href={`/chats/status/${story.id}`}
 			className="flex gap-2 items-center p-1 rounded-sm w-full hover:bg-hovery transition-all"
 		>
-			{user && user.imageUrl ? (
+			{story.imgProfile ? (
 				<Image
-					src={user.imageUrl}
-					alt={`${user.firstName!} ${user.lastName!}`}
+					src={story.imgProfile}
+					alt={story.userName}
 					height={48}
 					width={48}
 					className="rounded-full bg-custom_03 object-cover"
@@ -38,8 +38,11 @@ const Story = async ({ story }: { story: Status }) => {
 				<UserCircle className="w-12 h-12" />
 			)}
 			<div className="flex flex-col items-start w-full truncate">
-				<h1 className="text-tiny font-bold truncate">{story.userId}</h1>
+				<h1 className="text-tiny font-bold truncate">{story.userName}</h1>
 				<p className="text-tiny text-secondary">
+					{user?.id === story.userId && (
+						<span className="text-red-400 mr-2">Creator</span>
+					)}
 					{formatAMPM(story.createdAt)}
 				</p>
 			</div>

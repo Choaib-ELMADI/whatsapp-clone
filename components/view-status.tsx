@@ -12,12 +12,12 @@ const ViewStatus = ({ story }: { story: Status }) => {
 
 	useEffect(() => {
 		setTimeout(() => {
-			router.back();
+			router.push("/chats/status");
 		}, story && story.duration * 1000);
 	}, []);
 
 	return (
-		<div className="w-full max-w-[360px] h-[calc(100vh-45px)] relative">
+		<div className="w-full max-w-[360px] h-[calc(100vh-45px)] relative flex items-center bg-hovery">
 			<button
 				onClick={() => router.back()}
 				className="z-50 absolute top-2 right-1 bg-text text-background p-1 rounded-full"
@@ -37,17 +37,17 @@ const ViewStatus = ({ story }: { story: Status }) => {
 				<Image
 					src={story.fileUrl}
 					alt="Story Picture"
-					width={100}
-					height={100}
+					width={360}
+					height={800}
 					draggable="false"
-					className="w-full h-full object-cover"
+					className="w-full rounded-sm object-cover"
 				/>
 			)}
 			{story?.type === "video" && (
 				<video
 					src={story.fileUrl}
 					autoPlay
-					className="w-full h-full object-cover"
+					className="w-full rounded-sm object-cover"
 				/>
 			)}
 			{story.message && (

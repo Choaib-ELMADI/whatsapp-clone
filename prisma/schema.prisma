@@ -8,14 +8,16 @@ datasource db {
 }
 
 model Status {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  fileUrl   String
-  type      String
-  userId    String   @unique
-  message   String?
-  duration  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  fileUrl    String
+  type       String
+  userName   String
+  userId     String
+  imgProfile String
+  message    String?
+  duration   Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@map("stories")
 }
