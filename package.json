@@ -31,6 +31,7 @@
     "prisma": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "stream-chat": "^8.11.0",
     "stream-chat-react": "^10.9.1",
     "svix": "^1.10.0",

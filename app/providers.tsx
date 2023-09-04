@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { useState, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
 	const [mounted, setMounted] = useState(false);
@@ -12,7 +13,12 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
 	if (!mounted) return;
 
-	return <ThemeProvider attribute="class">{children}</ThemeProvider>;
+	return (
+		<ThemeProvider attribute="class">
+			<Toaster />
+			{children}
+		</ThemeProvider>
+	);
 };
 
 export default Providers;

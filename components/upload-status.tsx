@@ -2,6 +2,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import { toast } from "react-hot-toast";
 import { Send, X } from "lucide-react";
 import Image from "next/image";
 
@@ -46,7 +47,7 @@ const UploadStatus = ({
 		inputRef.current.scrollIntoView({ behavior: "smooth" });
 	}, [fileUrl]);
 
-	const uploadFileToDb = () => {
+	const uploadFileToDB = () => {
 		if (!file) return;
 
 		if (!file?.type.startsWith("image") && !file?.type.startsWith("video"))
@@ -69,19 +70,35 @@ const UploadStatus = ({
 			(error) => {
 				setLoading(false);
 				setFileUrl(null);
+				toast.error("An error occured. Please try again later.", {
+					duration: 5000,
+					className: "text-small text-center",
+				});
 				return;
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 					setLoading(false);
 					setFileUrl(downloadURL);
+					toast.success(
+						"Your file has been successfully uploaded and is ready for sharing.",
+						{
+							duration: 5000,
+							className: "text-small text-center",
+						}
+					);
 				});
 			}
 		);
 
 		let timeoutId = setTimeout(() => {
+			setUploading(false);
 			setLoading(false);
 			setFileUrl(null);
+			toast.error("Action took too long. Please try again later.", {
+				duration: 5000,
+				className: "text-small text-center",
+			});
 		}, 4 * 60 * 1000);
 
 		if (fileUrl) {
@@ -104,11 +121,19 @@ const UploadStatus = ({
 				userId: user?.id!,
 				imgProfile: user?.imageUrl!,
 			});
+			toast.success("Status published successfully.", {
+				duration: 5000,
+				className: "text-small text-center",
+			});
 		} catch (error) {
 			console.log("ERROR UPLOADING: ", error);
 			setUploading(false);
 			setFileUrl(null);
 			setDuration(15);
+			toast.error("Error publishing status. Please try again.", {
+				duration: 5000,
+				className: "text-small text-center",
+			});
 		} finally {
 			setUploading(false);
 			setFileUrl(null);
@@ -187,12 +212,12 @@ const UploadStatus = ({
 								<button
 									onClick={(e) => {
 										e.preventDefault();
-										uploadFileToDb();
+										uploadFileToDB();
 									}}
 									disabled={loading}
 									className="disabled:opacity-70"
 								>
-									{loading ? "Uploading..." : fileUrl ? "Uploaded" : "Upload"}
+									{loading ? "Approving..." : fileUrl ? "Approved" : "Approve"}
 								</button>
 							</div>
 						)}
