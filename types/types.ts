@@ -3,4 +3,5 @@ export interface StatusProps {
 	type: string;
 	userId: string;
 	message?: string;
+	duration: number;
 }

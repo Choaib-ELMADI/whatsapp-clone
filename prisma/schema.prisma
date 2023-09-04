@@ -13,6 +13,7 @@ model Status {
   type      String
   userId    String   @unique
   message   String?
+  duration  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

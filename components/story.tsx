@@ -1,10 +1,13 @@
+import { currentUser } from "@clerk/nextjs";
 import { UserCircle } from "lucide-react";
 import { Status } from "@prisma/client";
 
 import Image from "next/image";
 import Link from "next/link";
 
-const Story = ({ story }: { story: Status }) => {
+const Story = async ({ story }: { story: Status }) => {
+	const user = await currentUser();
+
 	function formatAMPM(date: Date) {
 		let hours = date.getHours();
 		let minutes = date.getMinutes();
@@ -20,17 +23,20 @@ const Story = ({ story }: { story: Status }) => {
 	return (
 		<Link
 			href={`/chats/status/${story.id}`}
-			className="flex gap-2 items-center my-2 p-1 rounded-sm w-full hover:bg-hovery transition-all"
+			className="flex gap-2 items-center p-1 rounded-sm w-full hover:bg-hovery transition-all"
 		>
-			{/* <Image
-				src="/logo.svg"
-				alt="Status Image"
-				height={48}
-				width={48}
-				className="rounded-full bg-custom_03 object-cover"
-				draggable="false"
-			/> */}
-			<UserCircle className="w-12 h-12" />
+			{user && user.imageUrl ? (
+				<Image
+					src={user.imageUrl}
+					alt={`${user.firstName!} ${user.lastName!}`}
+					height={48}
+					width={48}
+					className="rounded-full bg-custom_03 object-cover"
+					draggable="false"
+				/>
+			) : (
+				<UserCircle className="w-12 h-12" />
+			)}
 			<div className="flex flex-col items-start w-full truncate">
 				<h1 className="text-tiny font-bold truncate">{story.userId}</h1>
 				<p className="text-tiny text-secondary">

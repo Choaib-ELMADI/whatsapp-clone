@@ -1,5 +1,5 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Send, X } from "lucide-react";
 import Image from "next/image";
@@ -16,15 +16,33 @@ const UploadStatus = ({
 	uploadStatus: (data: StatusProps) => void;
 }) => {
 	const [fileUrl, setFileUrl] = useState<string | null>(null);
+	const [duration, setDuration] = useState<number>(15);
 	const [file, setFile] = useState<File | null>(null);
 	const [uploading, setUploading] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [message, setMessage] = useState("");
+
+	const inputRef = useRef<HTMLTextAreaElement | null>(null);
+	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const router = useRouter();
 
-	// useEffect(() => {
-	// 	setLoading(false);
-	// }, [file]);
+	const handleVideoMetadata = () => {
+		if (videoRef.current) {
+			const durationInSeconds = videoRef.current.duration;
+			setDuration(Number(durationInSeconds.toFixed(0)));
+		}
+	};
+
+	useEffect(() => {
+		setLoading(false);
+		setDuration(15);
+	}, [file]);
+
+	useEffect(() => {
+		if (!fileUrl || !inputRef.current) return;
+
+		inputRef.current.scrollIntoView({ behavior: "smooth" });
+	}, [fileUrl]);
 
 	const uploadFileToDb = () => {
 		if (!file) return;
@@ -55,7 +73,6 @@ const UploadStatus = ({
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 					setLoading(false);
 					setFileUrl(downloadURL);
-					console.log(downloadURL);
 				});
 			}
 		);
@@ -80,17 +97,21 @@ const UploadStatus = ({
 				fileUrl,
 				message,
 				type: file?.type.startsWith("image") ? "image" : "video",
+				duration,
 				userId: file?.name!,
 			});
 		} catch (error) {
 			console.log("ERROR UPLOADING: ", error);
 			setUploading(false);
 			setFileUrl(null);
+			setDuration(15);
 		} finally {
 			setUploading(false);
 			setFileUrl(null);
+			setDuration(15);
 			setMessage("");
 			setFile(null);
+			setViewModel(false);
 			router.refresh();
 		}
 	};
@@ -125,11 +146,14 @@ const UploadStatus = ({
 								/>
 							) : file?.type.startsWith("video") ? (
 								<video
-									src={URL.createObjectURL(file)}
+									ref={videoRef}
+									onLoadedMetadata={handleVideoMetadata}
 									controls
 									muted
 									className="w-full h-full rounded-sm object-cover"
-								/>
+								>
+									<source src={URL.createObjectURL(file)} />
+								</video>
 							) : (
 								<p className="text-center text-small text-red-500">
 									Wrong file selected
@@ -178,6 +202,7 @@ const UploadStatus = ({
 				</label>
 				<div className="w-full relative max-w-[400px] mx-auto">
 					<textarea
+						ref={inputRef}
 						rows={2}
 						className="resize-none w-full mt-4 rounded-sm outline-none p-2 text-small"
 						placeholder="Share your thoughts"
