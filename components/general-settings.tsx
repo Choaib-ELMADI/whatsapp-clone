@@ -8,8 +8,8 @@ const General = () => {
 		<div>
 			<h1 className="text-normal font-bold tracking-wide">General</h1>
 			<h1 className="mt-2">Login</h1>
-			<div className="text-red-400" onClick={() => router.push("/")}>
-				<SignOutButton />
+			<div className="text-red-400">
+				<SignOutButton signOutCallback={() => router.push("/")} />
 			</div>
 		</div>
 	);
