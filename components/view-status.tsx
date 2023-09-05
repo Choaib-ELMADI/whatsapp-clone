@@ -11,9 +11,13 @@ const ViewStatus = ({ story }: { story: Status }) => {
 	const router = useRouter();
 
 	useEffect(() => {
-		setTimeout(() => {
+		let timeoutId = setTimeout(() => {
 			router.push("/chats/status");
 		}, story && story.duration * 1000);
+
+		return () => {
+			clearTimeout(timeoutId);
+		};
 	}, []);
 
 	return (
