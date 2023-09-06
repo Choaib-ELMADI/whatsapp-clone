@@ -23,14 +23,14 @@ const ViewStatus = ({ story }: { story: Status }) => {
 	return (
 		<div className="w-full max-w-[360px] h-[calc(100vh-45px)] relative flex items-center bg-hovery">
 			<button
-				onClick={() => router.back()}
-				className="z-50 absolute top-2 right-1 bg-text text-background p-1 rounded-full"
+				onClick={() => router.push("/chats/status")}
+				className="z-50 absolute top-3 right-1 bg-text text-background p-1 rounded-full"
 			>
 				<SkipBack className="w-5 h-5 cursor-pointer" />
 			</button>
-			<div className="absolute top-0 left-0 w-full h-[3px] bg-tertiary">
+			<div className="absolute top-1 left-1 w-[calc(100%-8px)] h-[4px] rounded-full bg-tertiary">
 				<div
-					className="h-full bg-brand animate-[play]"
+					className="h-full rounded-full bg-brand animate-[play]"
 					style={{
 						animationDuration: `${story && story.duration}s`,
 						animationTimingFunction: "linear",
