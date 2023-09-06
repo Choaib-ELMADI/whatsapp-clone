@@ -10,7 +10,7 @@ export default function LeftComponent({
 	placeholder: string;
 }) {
 	return (
-		<div className="w-[360px] border-r border-white dark:border-black py-2 px-3">
+		<div className="w-[300px] border-r border-white dark:border-black py-2 px-3">
 			<div className="flex items-center justify-between">
 				<h1 className="text-normal font-bold tracking-wide leading-[36px]">
 					{type}

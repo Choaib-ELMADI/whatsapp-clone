@@ -38,7 +38,7 @@ const MenuItems = ({
 	return (
 		<div
 			className={cn(
-				"absolute left-[46px] bottom-1 z-50 bg-background border border-white dark:border-black text-text w-[calc(100%-50px)] max-w-[500px] h-[calc(100vh-49px)] max-h-[500px] rounded-lg translate-y-[110%] transition-all custom-scrollbar overflow-auto flex",
+				"absolute left-[46px] bottom-1 z-50 bg-background border border-white dark:border-black text-text w-[calc(100%-50px)] max-w-[500px] h-[calc(100vh-49px)] max-h-[500px] rounded-lg translate-y-[110%] transition-all custom-scrollbar overflow-y-auto overflow-x-hidden flex",
 				activeMenuItem !== null && "translate-y-0"
 			)}
 		>

@@ -25,7 +25,9 @@ const ProfileDetails = () => {
 			<p className="text-tiny text-secondary">User name</p>
 			<p className="text-tiny mb-3">{user?.fullName!}</p>
 			<p className="text-tiny text-secondary">User email</p>
-			<p className="text-tiny">{user?.primaryEmailAddress?.emailAddress}</p>
+			<p className="text-tiny break-all">
+				{user?.primaryEmailAddress?.emailAddress}
+			</p>
 		</div>
 	);
 };

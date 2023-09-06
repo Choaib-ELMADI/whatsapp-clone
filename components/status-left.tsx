@@ -29,7 +29,7 @@ export default async function StatusLeft() {
 	const userStoriesLength = userStories ? userStories.length : 0;
 
 	return (
-		<div className="h-[calc(100vh-45px)] w-[360px] border-r border-white dark:border-black py-2 px-3">
+		<div className="h-[calc(100vh-45px)] w-[300px] border-r border-white dark:border-black py-2 px-3">
 			<h1 className="text-normal font-bold tracking-wide leading-[36px]">
 				Status
 			</h1>
