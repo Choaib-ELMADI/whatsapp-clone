@@ -41,7 +41,7 @@ const Story = async ({ story }: { story: Status }) => {
 				<h1 className="text-tiny font-bold truncate">{story.userName}</h1>
 				<p className="text-tiny text-secondary">
 					{user?.id === story.userId && (
-						<span className="text-red-400 mr-2">My status</span>
+						<span className="text-red-400 mr-2 font-semibold">My status</span>
 					)}
 					{formatAMPM(story.createdAt)}
 				</p>

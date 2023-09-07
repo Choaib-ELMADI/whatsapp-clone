@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import ViewStatus from "@/components/view-status";
+import BackBtn from "@/components/back-btn";
 import { prisma } from "@/lib/db/prisma";
 
 export default async function StoryDetails({
@@ -17,7 +18,8 @@ export default async function StoryDetails({
 	}
 
 	return (
-		<div className="flex justify-center">
+		<div className="fixed top-0 left-0 w-full h-screen bg-background flex justify-center">
+			<BackBtn />
 			<ViewStatus story={story} />
 		</div>
 	);
